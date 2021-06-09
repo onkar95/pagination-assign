@@ -1,24 +1,27 @@
-import logo from './logo.svg';
+
+
+import Axios from 'axios';
+import { useEffect, useState } from 'react';
 import './App.css';
+import Details from './Details';
 
 function App() {
+  const [data1, setData] = useState([]);
+
+  useEffect(() => {
+    Axios.get("http://localhost:5000/todo")
+      .then(res => setData(res.data))
+      .catch(err => console.log(err));
+    
+  })
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="navbar">
+        <h1>Pagination of the given data</h1>
+      </div>
+      <Details data1={data1} />
+      
+      </>
   );
 }
 
